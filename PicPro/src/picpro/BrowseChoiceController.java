@@ -42,33 +42,33 @@ public class BrowseChoiceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-   
+
     }    
+    
+        //controller to Open one File of any type. 
     @FXML
     private void clickOpenOneButton(MouseEvent event) throws IOException {
         
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open An Image");
-        fileChooser.showOpenDialog(browseStage);
-                        
-            File file = fileChooser.showOpenDialog(browseStage);
+        fileChooser.setTitle("Open An Image");                        
+        File file = fileChooser.showOpenDialog(browseStage);
                 if (file != null) {
                     openFile(file);                   
                 }
             
     }
     
-    
+        // controller for open multiple files
+        //currently under construction
     @FXML
     private void clickOpenMultipleButton(MouseEvent event) throws IOException {
-        
+            //
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open An Image");
-        fileChooser.showOpenDialog(browseStage);
-        List<File> list = fileChooser.showOpenMultipleDialog(browseStage);
-        
+            //create a list of files.
+        List<File> list = fileChooser.showOpenMultipleDialog(browseStage);    
                     if (list != null) {
                         for (File file : list) {
                             openFile(file);
@@ -77,8 +77,10 @@ public class BrowseChoiceController implements Initializable {
  
  
     }
-        private void openFile(File file) throws IOException {
+        //opens file.
+    private void openFile(File file) throws IOException {
             desktop.open(file);
+            
             
     }
     

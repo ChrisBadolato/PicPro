@@ -33,7 +33,7 @@
             <Pane prefHeight="620.0" prefWidth="987.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="browseField" layoutX="194.0" layoutY="554.0" prefHeight="26.0" prefWidth="546.0" />
-                  <Button fx:id="browseButton" layoutX="792.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="40.0" prefWidth="83.0" text="Browse" />
+                  <Button fx:id="browseButton" layoutX="792.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="40.0" prefWidth="83.0" text="Browse" textFill="#a80a0a" />
                   <ImageView fx:id="imageSlot" fitHeight="497.0" fitWidth="886.0" layoutX="58.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>

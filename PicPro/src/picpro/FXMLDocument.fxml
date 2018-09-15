@@ -15,7 +15,7 @@
       <ButtonBar layoutX="115.0" layoutY="252.0" prefHeight="40.0" prefWidth="480.0">
         <buttons>
             <ChoiceBox fx:id="choiceBox" accessibleText="ComboBox" prefHeight="25.0" prefWidth="283.0" translateX="-50.0" />
-          <Button fx:id="selectButton" maxWidth="75.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#clickSelectButton" prefHeight="25.0" text="Select" />
+          <Button fx:id="selectButton" maxWidth="75.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#clickSelectButton" prefHeight="25.0" text="Select" textFill="#ff5959" />
         </buttons>
       </ButtonBar>
    </children>

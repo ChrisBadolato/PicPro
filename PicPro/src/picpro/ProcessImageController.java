@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package picpro;
 
 import java.io.IOException;
@@ -18,16 +14,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Chris
+ * @author
+ *          Chris Badolato
+ *          Frank Volk
+ *          Ryan Deyoung
+ *          Triston Hernandez
  */
 public class ProcessImageController implements Initializable {
-
+          
+        //Inializes button controllers
     @FXML
     private Button processButton;
     @FXML
@@ -41,16 +42,11 @@ public class ProcessImageController implements Initializable {
     @FXML
     private TextField browseField;
 
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
-    @Override
+        //initalziation controller.
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }  
-    
+        //Quits the program completely
    @FXML
    public void quitButton(MouseEvent event){
        Stage stage = (Stage) quitButton.getScene().getWindow();
@@ -59,48 +55,36 @@ public class ProcessImageController implements Initializable {
    
    @FXML 
    public void backButton(MouseEvent event) throws IOException{
-       
+            //loads the FXML of the previous menu. 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLDocument.fxml"));
         loader.load();
-        
-        // Retrieve root of loader to get reference to the Scene and Stage
         Parent homeParent = loader.getRoot();
-        Scene homeScene = new Scene(homeParent);
-        Stage homeStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        homeStage.setScene(homeScene);
-        homeStage.show();
-   }
-   
-   
-   public void browseButton(MouseEvent event) throws IOException {
-        
-       
-        
-       
-        String browseText;
-        browseText = browseField.getText();
-        System.out.println(browseText);
-        
+    
+   } 
+    @FXML
+    public void browseButton(MouseEvent event) throws IOException{      
+            /*String browseText;
+            browseText = browseField.getText();
+            System.out.println(browseText);   
+            */     
+            
+            // Loads the FXML of the main menu.                
+            // creates the stage for our browse buttons to open one or more files.  
+            // Dialog leaves the previous window open while opening the browse selection          
+        Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("browseChoice.fxml"));
-        loader.load();
-        
-        // Retrieve root of loader to get reference to the Scene and Stage
-        Parent homeParent = loader.getRoot();
-        Scene homeScene = new Scene(homeParent);
-        Stage homeStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        homeStage.setScene(homeScene);
-        homeStage.show();
-        
-        /*
-        Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open An Image");
-        fileChooser.showOpenDialog(browseStage);
-             */
-        
-        
-   }
-  
+        loader.load();         
+        Parent browseParent = loader.getRoot();      
+        Scene browseScene = new Scene(browseParent);
+        Stage parentStage = (Stage) node.getScene().getWindow();         
+        final Stage dialog = new Stage();
+            // Modality makes it so we cannot click the previous window while the dialog is opened
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(parentStage);
+        dialog.setScene(browseScene);
+        dialog.show();     
+   } 
+    
 }

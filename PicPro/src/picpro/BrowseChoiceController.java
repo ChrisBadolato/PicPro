@@ -5,9 +5,11 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,6 +34,10 @@ public class BrowseChoiceController implements Initializable {
     private Button openMultipleButton;
     
     private Desktop desktop = Desktop.getDesktop();
+    
+    public static ArrayList<imageObject> List = new ArrayList<>();
+    
+
 
     /**
      * Initializes the controller class for the current FXML file.
@@ -39,9 +45,12 @@ public class BrowseChoiceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-
-    }    
         
+    }     
+    
+    public static ArrayList<imageObject> getList(){       
+        return List;
+    }
         //controller to Open one File of any type. 
         //Will need to change the image to Image object type.
     @FXML
@@ -53,8 +62,24 @@ public class BrowseChoiceController implements Initializable {
         fileChooser.setTitle("Open An Image");  
         File file = fileChooser.showOpenDialog(browseStage);             
             if (file != null) {
-                openFile(file);                   
-            }               
+                
+                String fileName;
+                fileName = file.getPath();
+                System.out.println(fileName);
+                
+                imageObject newImage = new imageObject(fileName, file); 
+                
+                List.add(newImage);
+                
+                System.out.println(List);
+                                                                  
+                //openFile(file);
+                              
+            }    
+        
+        Stage stage = (Stage) openButton.getScene().getWindow();             
+        stage.close();       
+        
     }
         //controller for open multiple files
         //currently under construction and does not open more than one file.
@@ -66,13 +91,14 @@ public class BrowseChoiceController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open An Image");
             //As each file is selected store it on to our list.
-        List<File> list = fileChooser.showOpenMultipleDialog(browseStage);    
+        /*List<File> list = fileChooser.showOpenMultipleDialog(browseStage);    
             if (list != null) {                       
                 for (File file : list) {                         
                         openFile(file);
                         list.add(file);
                     }
-            }                 
+            }  
+            */               
     }
         //opens file method.
     private void openFile(File file) throws IOException {

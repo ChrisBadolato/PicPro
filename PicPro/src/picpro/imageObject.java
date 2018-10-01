@@ -2,6 +2,8 @@
 package picpro;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  *
@@ -13,27 +15,32 @@ import java.awt.Image;
  */
 public class imageObject {
     
-    Image newImage;
+    //BufferedImage newImage;
     String fileName;
+    File sourceFile;
         //sets and gets out image.
-    public imageObject (Image newImage) {
-        this.newImage = newImage;
-    }
-
-    imageObject(String fileName) {
+    imageObject (String fileName, File file) {
         this.fileName = fileName;
-    }
+        this.sourceFile = file;
+    }                      
         //setters and getters for our image and file objects.
         //Will potentially make objects for each image to store on a list.
-    public void set(Image newImage){
-        this.newImage = newImage;         
+ /*   public void set(BufferedImage newImage){
+       // this.newImage = newImage;         
     }  
     
     public Image getImage(){
-        return this.newImage;  
+        //return this.newImage;  
+    }
+ */   
+    public void setFile(File file){
+        this.sourceFile = file;
+    }
+    public File getFile(){
+        return this.sourceFile;
     }
     
-    public void setFile(String fileName){
+    public void setFileName(String fileName){
         this.fileName = fileName;
     }
     

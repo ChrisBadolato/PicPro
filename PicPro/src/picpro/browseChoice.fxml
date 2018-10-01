@@ -6,10 +6,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="255.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.BrowseChoiceController">
    <children>
-      <Pane layoutX="71.0" layoutY="28.0" prefHeight="200.0" prefWidth="360.0">
+      <Pane layoutX="69.0" layoutY="28.0" prefHeight="200.0" prefWidth="360.0">
          <children>
-            <Button fx:id="openButton" layoutX="59.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#clickOpenOneButton" text="Open One Button" />
-            <Button fx:id="openMultipleButton" layoutX="247.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#clickOpenMultipleButton" text="Button" />
+            <Button fx:id="openButton" layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#clickOpenOneButton" text="Open One Button" />
+            <Button fx:id="openMultipleButton" layoutX="238.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#clickOpenMultipleButton" text="Button" />
          </children>
       </Pane>
    </children>

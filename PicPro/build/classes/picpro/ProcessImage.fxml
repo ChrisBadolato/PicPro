@@ -39,6 +39,8 @@
                      <image>
                         <Image url="@picPro.png" />
                      </image></ImageView>
+                  <Button fx:id="incrementPhotosUp" layoutX="1019.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" text="--&gt;" />
+                  <Button fx:id="incrementPhotosDown" layoutX="56.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" text="&lt;--" />
                </children>
             </Pane>
          </center>

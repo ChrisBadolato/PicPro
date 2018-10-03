@@ -1,27 +1,28 @@
 
 package picpro;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+
 
 /**
  * FXML Controller class
@@ -50,21 +51,37 @@ public class ProcessImageController implements Initializable {
     private ImageView imageSlot;
     @FXML
     private TextField browseField;
-    
+     @FXML
+    private Button incrementPhotosUp;
+    @FXML
+    private Button incrementPhotosDown;
+            
     int listValue = 0;
     
-    public static ArrayList<imageObject> imageList = new ArrayList<>();
-            
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
+    public static ArrayList<BufferedImage> imageList = new ArrayList<>();
+   
 
 
         //initalziation controller.
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        imageList = BrowseChoiceController.getList();
+        
                 
     }  
+    public int ListValue(){
+        return listValue;
+    }
         //Quits the program completely
+    public ArrayList imageObjectList(){
+        return imageObjectList;
+    }
+    public ArrayList imageList(){
+        return imageList;
+    }
+    
+    
     @FXML
     public void quitButton(MouseEvent event){
        Stage stage = (Stage) quitButton.getScene().getWindow();
@@ -81,42 +98,63 @@ public class ProcessImageController implements Initializable {
     } 
     
     @FXML
-    public void selectButton(MouseEvent event){
+    public void selectButton(MouseEvent event) throws IOException{
         
-        //imageList = BrowseChoiceController.getList();
-        BufferedImage imageToWrite = null;
+        System.out.print(listValue);
         
+        FilterOne filter1 = new FilterOne(imageObjectList.get(listValue).newImage);
+       
         
-        File in;
+        BufferedImage editedImage =  FilterOne.returnImage();     
         
-            //opens image file
-        try
-        {
-            in = imageList.get(listValue).sourceFile;
-            imageToWrite = ImageIO.read(in);
-            System.out.println("Reading complete.");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Error:" +e);
-        } 
-            //rewrites it so we can replace it back on the imageview panel
-        WritableImage updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);
-        imageSlot.setImage(updatedImage);      
-        browseField.setText(imageList.get(listValue).getFileName()); 
-        System.out.println(listValue);
-        listValue++;                        
+        imageObjectList.get(listValue).newImage = editedImage;
+        
+        WritableImage updatedImage;                    
+        updatedImage = SwingFXUtils.toFXImage(editedImage, null);               
+        imageSlot.setImage(updatedImage);
+        
+                      
     }
    
     @FXML
     public void browseButton(MouseEvent event) throws IOException{    
         
         
+        Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open An Image");  
+        
+        List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
+        
+        for(File loop : filesList){
+            if(loop != null){
+                String fileName;
+                fileName = loop.getPath();
+                BufferedImage imageToWrite;            
+                    //rewrites it so we can replace it back on the imageview panel 
+                    //add new image to image array list
+                imageToWrite = ImageIO.read(loop); 
+                imageList.add(imageToWrite);                       
+                 //create new imageObject
+                    //add the image to the Image array list, and add the new object to the 
+                    //object list. Used image object for easy acess to each attribute of the images.
+                imageObject imageObject = new imageObject(fileName, loop, imageToWrite);                           
+                 
+                imageObjectList.add(imageObject);
+                    //update the browseText field. Increment the list location.
+                browseField.setText(imageObjectList.get(listValue).getFileName()); 
+                System.out.println(listValue);
+                System.out.println("Object Array value " + listValue);
+                listValue++; 
+                
+            }
+            
+        }  
+        /*
             /*String browseText;
             browseText = browseField.getText();
             System.out.println(browseText);   
-            */     
-            
+                  
             // Loads the FXML of the main menu.                
             // creates the stage for our browse buttons to open one or more files.  
             // Dialog leaves the previous window open while opening the browse selection          
@@ -135,8 +173,44 @@ public class ProcessImageController implements Initializable {
         dialog.initOwner(parentStage);
         dialog.setScene(browseScene);
         dialog.show();     
-
+        */
+        
            
    } 
+   public void incrementPhotosDown(MouseEvent event) throws IOException{
+        
+      
+        System.out.println(listValue); 
+        listValue--;        
+        System.out.println(listValue);        
+        if(listValue < 0){           
+            System.out.println(imageList.size());  
+            listValue = imageList.size() - 1;
+        }   
+        browseField.setText(imageObjectList.get(listValue).getFileName());                
+        BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+        WritableImage updatedImage;
+        updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
+        imageSlot.setImage(updatedImage); 
+       
+
+    }    
+      public void incrementPhotosUp(MouseEvent event) throws IOException{
+       
+        System.out.println(listValue); 
+        listValue++;        
+        if(listValue > imageList.size() - 1){
+           listValue = 0;
+        }     
+        System.out.println(listValue); 
+        browseField.setText(imageObjectList.get(listValue).getFileName());                
+        BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+        WritableImage updatedImage;
+        updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
+        imageSlot.setImage(updatedImage); 
+        
+    } 
+}  
+
      
-}
+

@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -77,9 +79,7 @@ public class ProcessImageController implements Initializable {
     public ArrayList imageObjectList(){
         return imageObjectList;
     }
-    public ArrayList imageList(){
-        return imageList;
-    }
+
     
     
     @FXML
@@ -94,19 +94,24 @@ public class ProcessImageController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLDocument.fxml"));
         loader.load();
-       // Parent homeParent = loader.getRoot();               
+        Parent homeParent = loader.getRoot();  
+        Scene homeMenuScene = new Scene(homeParent);
+        Stage homeMenuStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        homeMenuStage.setScene(homeMenuScene);           
+        homeMenuStage.show();
     } 
     
     @FXML
     public void selectButton(MouseEvent event) throws IOException{
         
+        
         System.out.print(listValue);
         
+            //Creates a new filter object with the currently viewed image.
         FilterOne filter1 = new FilterOne(imageObjectList.get(listValue).newImage);
-       
-        
+            //Grabs our newly created image from our first filter.
         BufferedImage editedImage =  FilterOne.returnImage();     
-        
+            //
         imageObjectList.get(listValue).newImage = editedImage;
         
         WritableImage updatedImage;                    
@@ -178,37 +183,38 @@ public class ProcessImageController implements Initializable {
            
    } 
    public void incrementPhotosDown(MouseEvent event) throws IOException{
-        
-      
-        System.out.println(listValue); 
-        listValue--;        
-        System.out.println(listValue);        
-        if(listValue < 0){           
-            System.out.println(imageList.size());  
-            listValue = imageList.size() - 1;
-        }   
-        browseField.setText(imageObjectList.get(listValue).getFileName());                
-        BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
-        WritableImage updatedImage;
-        updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
-        imageSlot.setImage(updatedImage); 
+        //if there is an item on our list we want to increment to the previous item
+        //resetting the list value to the size of the list will take us to the end of the photo list
+      if(!imageList.isEmpty()){          
+            listValue--;                
+            if(listValue < 0){                       
+                listValue = imageList.size() - 1;
+            }   
+                //Reset the text of our browseField as well as the actual image on the UI
+            browseField.setText(imageObjectList.get(listValue).getFileName());                
+            BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+            WritableImage updatedImage;
+            updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
+            imageSlot.setImage(updatedImage); 
+      }
        
 
     }    
       public void incrementPhotosUp(MouseEvent event) throws IOException{
-       
-        System.out.println(listValue); 
-        listValue++;        
-        if(listValue > imageList.size() - 1){
-           listValue = 0;
-        }     
-        System.out.println(listValue); 
-        browseField.setText(imageObjectList.get(listValue).getFileName());                
-        BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
-        WritableImage updatedImage;
-        updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
-        imageSlot.setImage(updatedImage); 
-        
+            //if there is an item on our list we want to increment to the Next item
+            //resetting the list value to the size of the list will take us to the front of the photo list
+       if(!imageList.isEmpty()){
+            listValue++;        
+            if(listValue > imageList.size() - 1){
+                listValue = 0;
+            }     
+                //Reset the text of our browseField as well as the actual image on the UI
+            browseField.setText(imageObjectList.get(listValue).getFileName());                
+            BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+            WritableImage updatedImage;
+            updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
+            imageSlot.setImage(updatedImage); 
+       }
     } 
 }  
 

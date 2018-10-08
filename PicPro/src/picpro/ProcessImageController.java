@@ -68,10 +68,9 @@ public class ProcessImageController implements Initializable {
         //initalziation controller.
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-                
+        // TODO              
     }  
+    
     public int ListValue(){
         return listValue;
     }

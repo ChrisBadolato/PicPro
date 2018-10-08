@@ -28,9 +28,6 @@ public class imageObject {
     }                      
         //setters and getters for our image and file objects.
         //Will potentially make objects for each image to store on a list.
-    public void set(BufferedImage newImage){
-       // this.newImage = newImage;         
-    }  
    
     public void setFile(File file){
         this.sourceFile = file;

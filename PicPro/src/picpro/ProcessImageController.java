@@ -67,7 +67,7 @@ public class ProcessImageController implements Initializable {
     @FXML
     private Button SaveButton;
     
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", "FilterOne", "FiltersForDays");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", "8-bit Filter", "FiltersForDays");
     
     @FXML
     private ChoiceBox filterChoice;
@@ -112,18 +112,20 @@ public class ProcessImageController implements Initializable {
     } 
     
     @FXML
-    public void selectButton(MouseEvent event) throws IOException{
-              
+    public void processButton(MouseEvent event) throws IOException{
         BufferedImage editedImage ;
         editedImage = imageObjectList.get(listValue).newImage;
-        System.out.println(listValue);
-            //Creates a new filter object with the currently viewed image.
-        
-        FilterOne filter1 = new FilterOne(editedImage);
-            //Grabs our newly created image from our first filter.
-        editedImage =  FilterOne.returnImage();     
-        
-            //imageObjectList.get(listValue).setImage(editedImage); 
+        String boxChoice;
+        boxChoice = (String) filterChoice.getValue();
+        if("8-bit Filter".equals(boxChoice)){
+        //Grabs our newly created image from our first filter.
+            FilterOne filter1 = new FilterOne(editedImage);           
+            editedImage =  FilterOne.returnImage();
+        }
+        else if("Orginal Image".equals(boxChoice)){
+            editedImage = imageObjectList.get(listValue).newImage;
+        }
+
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -135,7 +137,7 @@ public class ProcessImageController implements Initializable {
         
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open An Image");  
+        fileChooser.setTitle("Open Images");  
         
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
@@ -147,19 +149,14 @@ public class ProcessImageController implements Initializable {
                     BufferedImage imageToWrite;            
                         //rewrites it so we can replace it back on the imageview panel 
                         //add new image to image array list
-                    imageToWrite = ImageIO.read(loop); 
-                    //imageList.add(imageToWrite);   
-                        //update the UI with the last image.
-                        //WritableImage updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
-                        //ImageSlot.setImage(updatedImage);
+                    imageToWrite = ImageIO.read(loop);                       
                         //create new imageObject
                         //add the image to the Image array list, and add the new object to the 
                         //object list. Used image object for easy acess to each attribute of the images.
                     imageObject imageObject = new imageObject(fileName, loop, imageToWrite);                           
                     imageObjectList.add(imageObject);
-                        //update the browseText field. Increment the list location.
-                    browseField.setText(imageObjectList.get(positionForNewImages).getFileName()); 
-                    System.out.println("Object Array value " + positionForNewImages);
+                        //update the browseText field. Increment the list location.                
+                        //System.out.println("Object Array value " + positionForNewImages);
                     positionForNewImages++;    
                 } 
             } 
@@ -222,28 +219,29 @@ public class ProcessImageController implements Initializable {
         
         String boxChoice;
         boxChoice = (String) filterChoice.getValue();
-        
-        if("FilterOne".equals(boxChoice)){
+        if("8-bit Filter".equals(boxChoice)){
             BufferedImage editedImage ;
             editedImage = imageObjectList.get(listValue).newImage;
                 //Creates a new filter object with the currently viewed image.
-            FilterOne filter1 = new FilterOne(editedImage);
                 //Grabs our newly created image from our first filter.
+            FilterOne filter1 = new FilterOne(editedImage);            
             editedImage =  FilterOne.returnImage();
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             save(saveStage, editedImage);
-        }     
-        
+        }       
+        else if("Orginal Image".equals(boxChoice)){
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, imageObjectList.get(listValue).newImage);
+        }
     }
-    public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{
-        
+    
+    public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(imageToSave, null);       
             //imageSlot.setImage(updatedImage);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(saveStage);
-
         if (file != null) {  
             ImageIO.write(SwingFXUtils.fromFXImage(updatedImage, null), "png", file); 
             String fileString = file.getPath();
@@ -254,6 +252,3 @@ public class ProcessImageController implements Initializable {
         }           
     }
 }  
-
-     
-

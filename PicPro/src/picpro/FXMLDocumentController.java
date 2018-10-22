@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  */
 public class FXMLDocumentController implements Initializable {
         //creates a list for our choicebox.
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("ProcessImage", "Process 2", "Process 3");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("ProcessImage", "Filters", "Process 3");
         //Button controllers.
     @FXML
     private Button selectButton;

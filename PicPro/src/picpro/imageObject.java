@@ -43,6 +43,7 @@ public class imageObject {
     public String getFileName(){
         return this.fileName;
     }
+   
     public void setImage(BufferedImage newImage){
         this.newImage = newImage;
     }

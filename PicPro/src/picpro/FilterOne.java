@@ -19,10 +19,8 @@ public class FilterOne {
     private final BufferedImage inputImage;
     static BufferedImage output = new BufferedImage(240, 320, BufferedImage.TYPE_INT_RGB);
         
-     public FilterOne (BufferedImage passedImage) {
-        
-        System.out.print("Hello");
-         
+     public FilterOne (BufferedImage passedImage) {     
+        //System.out.print("Hello");        
         this.inputImage = passedImage;
         
         // variable to hold th width and height of input image                

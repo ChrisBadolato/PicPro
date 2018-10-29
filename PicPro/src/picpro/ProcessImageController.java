@@ -55,19 +55,24 @@ public class ProcessImageController implements Initializable {
     private ImageView imageSlot;
     @FXML
     private TextField browseField;
-     @FXML
+    @FXML
     private Button incrementPhotosUp;
     @FXML
     private Button incrementPhotosDown;
+    @FXML
+    private Button rotateButton;
+    
             
     int listValue = 0;
+    int counter;
+    int last = -1;
     
     public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
     //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
     @FXML
     private Button SaveButton;
     
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", "8-bit Filter", "FiltersForDays");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
     
     @FXML
     private ChoiceBox filterChoice;
@@ -112,6 +117,31 @@ public class ProcessImageController implements Initializable {
     } 
     
     @FXML
+    public void rotateButton(MouseEvent event) throws IOException{
+        if(counter == 4){
+            counter = 1;
+        }
+        else{
+            counter++;
+        }   
+        BufferedImage editedImage;
+        editedImage = imageObjectList.get(listValue).newImage;
+        
+        if(last == -1 || listValue != last){
+            counter = 1;
+        }
+        
+        last = listValue;
+        
+        rotate filter1 = new rotate(editedImage, counter);
+        editedImage = rotate.returnImage();
+        
+        WritableImage updatedImage;  
+        updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
+        imageSlot.setImage(updatedImage);
+    }
+    
+    @FXML
     public void processButton(MouseEvent event) throws IOException{
         BufferedImage editedImage ;
         editedImage = imageObjectList.get(listValue).newImage;
@@ -119,8 +149,17 @@ public class ProcessImageController implements Initializable {
         boxChoice = (String) filterChoice.getValue();
         if("8-bit Filter".equals(boxChoice)){
         //Grabs our newly created image from our first filter.
-            FilterOne filter1 = new FilterOne(editedImage);           
-            editedImage =  FilterOne.returnImage();
+            eightBit filter1 = new eightBit(editedImage);           
+            editedImage =  eightBit.returnImage();
+        }
+        if("Black and White Filter".equals(boxChoice)){
+            blackWhite filter1 = new blackWhite(editedImage);           
+            editedImage =  blackWhite.returnImage();
+        }
+        if("Sepia Filter".equals(boxChoice)){
+        //Grabs our newly created image from our first filter.
+            sepia filter1 = new sepia(editedImage);           
+            editedImage =  sepia.returnImage();
         }
         else if("Orginal Image".equals(boxChoice)){
             editedImage = imageObjectList.get(listValue).newImage;
@@ -217,6 +256,39 @@ public class ProcessImageController implements Initializable {
     @FXML
     private void saveButton(MouseEvent event) throws IOException {
         
+        if(counter == 1){
+            BufferedImage editedImage;
+            editedImage = imageObjectList.get(listValue).newImage;
+            rotate filter1 = new rotate(editedImage, counter);
+            editedImage = rotate.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        }
+        if(counter == 2){
+            BufferedImage editedImage;
+            editedImage = imageObjectList.get(listValue).newImage;
+            rotate filter1 = new rotate(editedImage, counter);
+            editedImage = rotate.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        }
+        if(counter == 3){
+            BufferedImage editedImage;
+            editedImage = imageObjectList.get(listValue).newImage;
+            rotate filter1 = new rotate(editedImage, counter);
+            editedImage = rotate.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        }
+        if(counter == 4){
+            BufferedImage editedImage;
+            editedImage = imageObjectList.get(listValue).newImage;
+            rotate filter1 = new rotate(editedImage, counter);
+            editedImage = rotate.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        }
+        
         String boxChoice;
         boxChoice = (String) filterChoice.getValue();
         if("8-bit Filter".equals(boxChoice)){
@@ -224,8 +296,28 @@ public class ProcessImageController implements Initializable {
             editedImage = imageObjectList.get(listValue).newImage;
                 //Creates a new filter object with the currently viewed image.
                 //Grabs our newly created image from our first filter.
-            FilterOne filter1 = new FilterOne(editedImage);            
-            editedImage =  FilterOne.returnImage();
+            eightBit filter1 = new eightBit(editedImage);            
+            editedImage =  eightBit.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        } 
+        if("Black and White Filter".equals(boxChoice)){
+            BufferedImage editedImage ;
+            editedImage = imageObjectList.get(listValue).newImage;
+                //Creates a new filter object with the currently viewed image.
+                //Grabs our newly created image from our first filter.
+            blackWhite filter1 = new blackWhite(editedImage);            
+            editedImage =  blackWhite.returnImage();
+            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+            save(saveStage, editedImage);
+        } 
+        if("Sepia Filter".equals(boxChoice)){
+            BufferedImage editedImage ;
+            editedImage = imageObjectList.get(listValue).newImage;
+                //Creates a new filter object with the currently viewed image.
+                //Grabs our newly created image from our first filter.
+            sepia filter1 = new sepia(editedImage);            
+            editedImage =  sepia.returnImage();
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             save(saveStage, editedImage);
         }       

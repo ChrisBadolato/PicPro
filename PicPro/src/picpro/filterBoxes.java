@@ -9,13 +9,14 @@ import ij.process.ImageProcessor;
 public class filterBoxes {
 	
 	public Random random = new Random();
+	public BufferedImage finalimage;
 	
 	/* Parameters:
 	 * fxP1: magnitude
 	 * fxP2: density
 	 * fxP3: width
 	*/
-	public BufferedImage returnImage(BufferedImage image, int fxP1, int fxP2, int fxP3){
+	public filterBoxes(BufferedImage image, int fxP1, int fxP2, int fxP3){
         ImagePlus imp = new ImagePlus("",image);
 		
         ImageProcessor ip = imp.getProcessor();
@@ -48,8 +49,11 @@ public class filterBoxes {
         		p++;
         	}
         }
-        
-        return ip.getBufferedImage();
+        finalimage = ip.getBufferedImage();
+	}
+	
+	public BufferedImage returnImage(){
+		return finalimage;
 	}
 
 }

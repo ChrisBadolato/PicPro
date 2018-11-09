@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" accessibleText="ComboBox" prefHeight="531.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.FXMLDocumentController">
+<AnchorPane id="AnchorPane" accessibleText="ComboBox" prefHeight="531.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.FXMLDocumentController">
    <children>
       <ChoiceBox fx:id="choiceBox" accessibleText="ComboBox" layoutX="232.0" layoutY="462.0" prefHeight="25.0" prefWidth="283.0" />
     <Button fx:id="quitButton" layoutX="80.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#clickCloseButton" prefHeight="25.0" prefWidth="83.0" text="Quit" />

@@ -1,6 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package picpro;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Random;
 
 import ij.ImagePlus;
@@ -9,9 +15,19 @@ import ij.process.ImageProcessor;
 public class filterGlitch {
 
 	public Random random = new Random();
-	public BufferedImage finalimage;
 	
-	public filterGlitch(BufferedImage image, int fxP1, int fxP2, int fxP3){
+        static public BufferedImage finalimage;
+        static public BufferedImage image;
+        int fxP1, fxP2,fxP3;
+	
+	public filterGlitch(BufferedImage newImage, int fxP1a, int fxP2b, int fxP3c){
+		        
+        this.image = newImage;
+        this.fxP1 = fxP1a;
+        this.fxP2 = fxP2b;
+        this.fxP3 = fxP3c;
+		
+		
 		ImagePlus imp = new ImagePlus("",image);
 		
         ImageProcessor ip = imp.getProcessor();
@@ -48,7 +64,8 @@ public class filterGlitch {
         finalimage = ip.getBufferedImage();
 	}
 	
-	public BufferedImage returnImage(){
+	static public BufferedImage returnImage(){
 		return finalimage;
 	}
 }
+

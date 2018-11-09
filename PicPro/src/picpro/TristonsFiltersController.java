@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package picpro;
 
 import java.awt.image.BufferedImage;
@@ -27,27 +31,27 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
-
 /**
  * FXML Controller class
  *
- * @author
- *          Chris Badolato
- *          Frank Volk
- *          Ryan Deyoung
- *          Triston Hernandez
+ * @author Chris
  */
+public class TristonsFiltersController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        
+        filterChoice.setItems(choiceBoxList);
+        filterChoice.setValue("Original Image");
+    }
 
 
 
-public class ProcessImageController implements Initializable {
-          
-        //Inializes button controllers
-    @FXML
-    private Button processButton;
-    @FXML
-    private Button backButton;
-    @FXML
+
     private Button quitButton;
     @FXML
     private Button browseButton;
@@ -55,12 +59,6 @@ public class ProcessImageController implements Initializable {
     private ImageView imageSlot;
     @FXML
     private TextField browseField;
-    @FXML
-    private Button incrementPhotosUp;
-    @FXML
-    private Button incrementPhotosDown;
-    @FXML
-    private Button rotateButton;
     
     BufferedImage editedImage;
     int listValue = 0;
@@ -72,21 +70,11 @@ public class ProcessImageController implements Initializable {
     @FXML
     private Button SaveButton;
     
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", 
-                "8-bit Filter","Black and White Filter", "Sepia Filter","TwoLayerBorder", "filterGlitch");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
     
     @FXML
     private ChoiceBox filterChoice;
    
-
-
-        //initalziation controller.
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        filterChoice.setItems(choiceBoxList);
-        filterChoice.setValue("Original Image");
-        // TODO              
-    }  
     
     public int ListValue(){
         return listValue;
@@ -98,7 +86,6 @@ public class ProcessImageController implements Initializable {
 
     
     
-    @FXML
     public void quitButton(MouseEvent event){
        Stage stage = (Stage) quitButton.getScene().getWindow();
        stage.close();
@@ -117,7 +104,6 @@ public class ProcessImageController implements Initializable {
         homeMenuStage.show();
     } 
     
-    @FXML
     public void rotateButton(MouseEvent event) throws IOException{
         if(counter == 4){
             counter = 1;
@@ -142,7 +128,6 @@ public class ProcessImageController implements Initializable {
         imageSlot.setImage(updatedImage);
     }
     
-    @FXML
     public void processButton(MouseEvent event) throws IOException{
         
         editedImage = imageObjectList.get(listValue).newImage;
@@ -165,14 +150,6 @@ public class ProcessImageController implements Initializable {
         if("filterBoxes".equals(boxChoice)){
             filterBoxes filter1 = new filterBoxes(editedImage, 20, 7, 2);           
             editedImage =  filterBoxes.returnImage();
-        }
-        if("TwoLayerBorder".equals(boxChoice)){
-            TwoLayerBorder newFilter = new TwoLayerBorder(editedImage);
-            editedImage = TwoLayerBorder.returnImage();
-        }
-        if("filterGlitch".equals(boxChoice)){
-            filterGlitch filter1 = new filterGlitch(editedImage, 20, 7, 2);           
-            editedImage =  filterGlitch.returnImage();
         }
         else if("Orginal Image".equals(boxChoice)){
             editedImage = imageObjectList.get(listValue).newImage;
@@ -218,7 +195,6 @@ public class ProcessImageController implements Initializable {
         }         
    } 
     
-    @FXML
     public void incrementPhotosDown(MouseEvent event) throws IOException{
         //if there is an item on our list we want to increment to the previous item
         //resetting the list value to the size of the list will take us to the end of the photo list
@@ -236,7 +212,6 @@ public class ProcessImageController implements Initializable {
         }      
     }    
    
-    @FXML
     public void incrementPhotosUp(MouseEvent event) throws IOException{
             //if there is an item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
@@ -291,4 +266,10 @@ public class ProcessImageController implements Initializable {
             listValue++;
         }           
     }
-}  
+    
+    
+    
+    
+    
+    
+}

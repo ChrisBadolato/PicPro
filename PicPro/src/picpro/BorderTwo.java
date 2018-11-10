@@ -7,14 +7,17 @@ package picpro;
 
 import java.awt.image.BufferedImage;
 
-
-public class TwoLayerBorder {
-        public BufferedImage inputImage = null;
+/**
+ *
+ * @author Chris Badolato
+ */
+public class BorderTwo{
+    
+    public BufferedImage inputImage = null;
     static BufferedImage outputImage;
 
-    public TwoLayerBorder(BufferedImage passedImage){
-
-        this.inputImage = passedImage;
+    public BorderTwo(BufferedImage passedImage){
+       this.inputImage = passedImage;
 
         int width = inputImage.getWidth();
         int height = inputImage.getHeight();
@@ -55,9 +58,9 @@ public class TwoLayerBorder {
         {
             for(int y = 0; y < height; y++)
             {
-                one = x <= 25 || y <= 25;
-                oneFar = x >= width - 25 || y >= height - 25;
-                two = x >= 25 && x <= 50 || x <= width - 25 && x >= width - 50 || y >= 25 && y <= 50 || y <= height - 25 && y >= height - 50;
+                one = x < 25 || y < 25;
+                oneFar = x > width - 25 || y > height - 25;
+                two = x > 25 && x < 50 || x < width - 25 && x > width - 50 || y > 25 && y < 50 || y < height - 25 && y > height - 50;
 
                 if(one || oneFar)
                 {
@@ -100,4 +103,5 @@ public class TwoLayerBorder {
     {
         return outputImage;
     }
+
 }

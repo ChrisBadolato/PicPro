@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="761.0" prefWidth="1003.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="picpro.TristonsFiltersController">
+<AnchorPane id="AnchorPane" prefHeight="761.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.TristonsFiltersController">
    <children>
-      <ImageView fx:id="imageSlot" fitHeight="536.0" fitWidth="818.0" layoutX="91.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="browseField" layoutX="176.0" layoutY="669.0" prefHeight="25.0" prefWidth="420.0" />
-      <Button fx:id="browseButton" layoutX="850.0" layoutY="669.0" mnemonicParsing="false" onMouseClicked="#browseButton" text="Browse" />
-      <Button layoutX="71.0" layoutY="669.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
-      <Button fx:id="SaveButton" layoutX="857.0" layoutY="607.0" mnemonicParsing="false" onMouseClicked="#saveButton" text="Save" />
-      <ChoiceBox fx:id="filterChoice" layoutX="643.0" layoutY="669.0" prefWidth="150.0" />
+      <ImageView fx:id="imageSlot" fitHeight="548.0" fitWidth="670.0" layoutX="270.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@picPro.png" />
+         </image></ImageView>
+      <TextField fx:id="browseField" layoutX="387.0" layoutY="605.0" prefHeight="25.0" prefWidth="420.0" />
+      <Button fx:id="browseButton" layoutX="420.0" layoutY="683.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="25.0" prefWidth="82.0" text="Browse" />
+      <Button layoutX="41.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
+      <Button fx:id="SaveButton" layoutX="824.0" layoutY="695.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="25.0" prefWidth="54.0" text="Save" />
+      <CheckBox fx:id="twoLayerBorder" layoutX="34.0" layoutY="106.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="141.0" text="Two Layer Border" />
+      <Button layoutX="45.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#processButton" prefHeight="25.0" prefWidth="92.0" text="Process" />
+      <CheckBox fx:id="amber" layoutX="34.0" layoutY="139.0" mnemonicParsing="false" text="Amber" />
+      <CheckBox fx:id="borderOne" layoutX="35.0" layoutY="219.0" mnemonicParsing="false" text="Border One" />
+      <CheckBox fx:id="cerulean" layoutX="35.0" layoutY="256.0" mnemonicParsing="false" text="Cerulean" />
+      <CheckBox fx:id="negative" layoutX="35.0" layoutY="292.0" mnemonicParsing="false" text="Negative" />
+      <CheckBox fx:id="america" layoutX="34.0" layoutY="179.0" mnemonicParsing="false" text="America" />
+      <CheckBox fx:id="forest" layoutX="34.0" layoutY="326.0" mnemonicParsing="false" text="Forest" />
+      <Button layoutX="935.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="25.0" prefWidth="54.0" text="Right" />
+      <Button layoutX="176.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" prefHeight="25.0" prefWidth="65.0" text="Left" />
    </children>
 </AnchorPane>

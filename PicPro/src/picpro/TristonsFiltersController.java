@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -38,15 +39,28 @@ import javax.imageio.ImageIO;
  */
 public class TristonsFiltersController implements Initializable {
 
+    @FXML
+    private CheckBox twoLayerBorder;
+    @FXML
+    private CheckBox amber;
+    @FXML
+    private CheckBox cerulean;
+    @FXML
+    private CheckBox negative;
+    @FXML
+    private CheckBox america;
+    @FXML
+    private CheckBox forest;
+    @FXML
+    private CheckBox borderOne;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        filterChoice.setItems(choiceBoxList);
-        filterChoice.setValue("Original Image");
+       
     }
 
 
@@ -72,7 +86,6 @@ public class TristonsFiltersController implements Initializable {
     
     ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
     
-    @FXML
     private ChoiceBox filterChoice;
    
     
@@ -128,33 +141,41 @@ public class TristonsFiltersController implements Initializable {
         imageSlot.setImage(updatedImage);
     }
     
+    @FXML
     public void processButton(MouseEvent event) throws IOException{
-        
+                                  
         editedImage = imageObjectList.get(listValue).newImage;
-        String boxChoice;
-        boxChoice = (String) filterChoice.getValue();
-        if("8-bit Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
-            eightBit filter1 = new eightBit(editedImage);           
-            editedImage =  eightBit.returnImage();
+        if(twoLayerBorder.isSelected()){
+            TwoLayerBorder twoLayer = new TwoLayerBorder(editedImage);
+            editedImage = TwoLayerBorder.returnImage();
         }
-        if("Black and White Filter".equals(boxChoice)){
-            blackWhite filter1 = new blackWhite(editedImage);           
-            editedImage =  blackWhite.returnImage();
+        else if(amber.isSelected()){
+            Amber newAmber = new Amber(editedImage);
+            editedImage = Amber.returnImage();
         }
-        if("Sepia Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
-            sepia filter1 = new sepia(editedImage);           
-            editedImage =  sepia.returnImage();
+        else if(borderOne.isSelected()){
+            BorderTwo newBoreder = new BorderTwo(editedImage);
+            editedImage = BorderTwo.returnImage();
         }
-        if("filterBoxes".equals(boxChoice)){
-            filterBoxes filter1 = new filterBoxes(editedImage, 20, 7, 2);           
-            editedImage =  filterBoxes.returnImage();
+        else if(cerulean.isSelected()){
+            Cerulean newCerulean = new Cerulean(editedImage);
+            editedImage = Cerulean.returnImage();
         }
-        else if("Orginal Image".equals(boxChoice)){
+        else if(america.isSelected()){
+            America newAmerica = new America(editedImage);
+            editedImage = America.returnImage();
+        }
+        else if(forest.isSelected()){
+            Forest newForest = new Forest(editedImage);
+            editedImage = Forest.returnImage();
+        }
+        else if(negative.isSelected()){
+            Negative newNegative = new Negative(editedImage);
+            editedImage = Negative.returnImage();
+        }
+        else{
             editedImage = imageObjectList.get(listValue).newImage;
         }
-
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -242,12 +263,9 @@ public class TristonsFiltersController implements Initializable {
     } 
 
     @FXML
-    private void saveButton(MouseEvent event) throws IOException {
-      
+    private void saveButton(MouseEvent event) throws IOException {   
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            save(saveStage, editedImage);
-        
-        
+            save(saveStage, editedImage);    
     }
     
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
@@ -265,11 +283,5 @@ public class TristonsFiltersController implements Initializable {
             imageObjectList.add(imageObject);  
             listValue++;
         }           
-    }
-    
-    
-    
-    
-    
-    
+    }  
 }

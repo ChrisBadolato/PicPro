@@ -9,10 +9,7 @@ import java.awt.image.BufferedImage;
 
 
 
-/**
- *
- * @author Chris Badolato
- */
+
 public class FilterOne {
     
     

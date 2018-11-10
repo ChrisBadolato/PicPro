@@ -68,7 +68,7 @@ public class ProcessImageController implements Initializable {
     int last = -1;
     
     public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
-    //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
+    
     @FXML
     private Button SaveButton;
     
@@ -136,7 +136,7 @@ public class ProcessImageController implements Initializable {
         
         rotate filter1 = new rotate(editedImage, counter);
         editedImage = rotate.returnImage();
-        
+       
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -185,12 +185,10 @@ public class ProcessImageController implements Initializable {
     }
    
     @FXML
-    public void browseButton(MouseEvent event) throws IOException{    
-        
+    public void browseButton(MouseEvent event) throws IOException{      
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Images");  
-        
+        fileChooser.setTitle("Open Images");        
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
         if(filesList != null){
@@ -241,13 +239,11 @@ public class ProcessImageController implements Initializable {
             //if there is an item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
         if(!imageObjectList.isEmpty()){                   
-            System.out.println("ListValue" + listValue);
-            //System.out.println("imageList size" + imageList.size());
+            
             listValue++;
-            // System.out.print("ListValue" + listValue);
+            
             if(listValue > imageObjectList.size() - 1){
-                listValue = 0;   
-                //System.out.print("ListValue" + listValue);
+                listValue = 0;                 
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -256,7 +252,6 @@ public class ProcessImageController implements Initializable {
             }  
             else{ 
                 //Reset the text of our browseField as well as the actual image on the UI
-                System.out.println("else");
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -268,17 +263,13 @@ public class ProcessImageController implements Initializable {
 
     @FXML
     private void saveButton(MouseEvent event) throws IOException {
-      
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            save(saveStage, editedImage);
-        
-        
+            save(saveStage, editedImage);     
     }
     
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
-        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);       
-            //imageSlot.setImage(updatedImage);
+        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);               
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(saveStage);

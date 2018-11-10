@@ -1,3 +1,6 @@
+
+package picpro;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -9,12 +12,20 @@ import ij.process.ImageProcessor;
 public class filterStrokes {
 	
 	public Random random = new Random();
-	public BufferedImage finalimage;
+	static public BufferedImage finalimage;      
+        public BufferedImage image;
+        int fxP1, fxP2,fxP3;
+        
 	
-	public filterStrokes(BufferedImage image, int fxP1, int fxP2, int fxP3){
-		ImagePlus imp = new ImagePlus("",image);
-		
-		ImageProcessor ip = imp.getProcessor();
+	public filterStrokes(BufferedImage newImage, int fxP1a, int fxP2b, int fxP3c){
+        this.image = newImage;
+        this.fxP1 = fxP1a;
+        this.fxP2 = fxP2b;
+        this.fxP3 = fxP3c;
+            
+            
+        ImagePlus imp = new ImagePlus("",image);
+        ImageProcessor ip = imp.getProcessor();
         ip.setLineWidth(fxP3);
         
         int h = ip.getHeight();
@@ -49,7 +60,7 @@ public class filterStrokes {
         finalimage = ip.getBufferedImage();
 	}
 
-	public BufferedImage returnImage(){
+	static public BufferedImage returnImage(){
 		return finalimage;
 	}
 

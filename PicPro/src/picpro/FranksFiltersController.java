@@ -12,8 +12,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -31,73 +28,84 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import static picpro.ProcessImageController.imageObjectList;
+import static picpro.TristonsFiltersController.imageObjectList;
 
+/**
+ * FXML Controller class
+ *
+ * @author Chris Badolato
+ */
+public class FranksFiltersController implements Initializable {
 
-public class TristonsFiltersController implements Initializable {
-
     @FXML
-    private CheckBox twoLayerBorder;
+    private TextField instaSearchBar;
     @FXML
-    private CheckBox amber;
+    private Button instaSearch;
     @FXML
-    private CheckBox cerulean;
+    private TextField magnitudeBar;
     @FXML
-    private CheckBox negative;
+    private TextField densityBar;
     @FXML
-    private CheckBox america;
+    private TextField strokeBar;
     @FXML
-    private CheckBox forest;
+    private CheckBox boxesCheck;
     @FXML
-    private CheckBox borderOne;
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       
-    }
-
-    private Button quitButton;
+    private CheckBox glitchCheck;
     @FXML
-    private Button browseButton;
+    private CheckBox strokesCheck;
     @FXML
     private ImageView imageSlot;
     @FXML
+    
     private TextField browseField;
-    
     BufferedImage editedImage;
-    int listValue = 0;
-    int counter;
-    int last = -1;
-    
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
-    //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
-    @FXML
-    private Button SaveButton;
-    
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
-    
-    private ChoiceBox filterChoice;
+    int listValue = 0;  
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();  
    
-    
-    public int ListValue(){
-        return listValue;
-    }
-        //Quits the program completely
-    public ArrayList imageObjectList(){
-        return imageObjectList;
-    }
+
 
     
-    
-    public void quitButton(MouseEvent event){
-       Stage stage = (Stage) quitButton.getScene().getWindow();
-       stage.close();
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+
+    @FXML
+    private void getInstagramPictures(MouseEvent event) {
+        String instagramToFind = instaSearchBar.getText();
+        System.out.print(instagramToFind);
     }
-   
-    @FXML 
+
+    @FXML
+    private void applyFilter(MouseEvent event) {
+        
+        editedImage = imageObjectList.get(listValue).newImage;
+        String magnitudeString = magnitudeBar.getText();
+        String densityString = densityBar.getText();
+        String strokesString = strokeBar.getText();
+        int magnitude = Integer.parseInt(magnitudeString);
+        int density = Integer.parseInt(densityString);
+        int strokes = Integer.parseInt(strokesString);
+        
+        if(boxesCheck.isSelected()){
+            filterBoxes boxes = new filterBoxes(editedImage, magnitude, density, strokes);           
+            editedImage =  filterBoxes.returnImage();
+        }
+        else if(glitchCheck.isSelected()){
+            filterGlitch glitch = new filterGlitch(editedImage, magnitude, density, strokes);           
+            editedImage =  filterGlitch.returnImage();
+        }
+        else if(strokesCheck.isSelected()){
+            filterStrokes filter = new filterStrokes(editedImage, magnitude, density, strokes);
+            editedImage = filterStrokes.returnImage();
+        }
+        WritableImage updatedImage;  
+        updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
+        imageSlot.setImage(updatedImage);
+                 
+    }
+    
     public void backButton(MouseEvent event) throws IOException{
             //loads the FXML of the previous menu. 
         FXMLLoader loader = new FXMLLoader();
@@ -108,81 +116,13 @@ public class TristonsFiltersController implements Initializable {
         Stage homeMenuStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         homeMenuStage.setScene(homeMenuScene);           
         homeMenuStage.show();
-    } 
-    
-    @FXML
-    public void rotateButton(MouseEvent event) throws IOException{
-        if(counter == 4){
-            counter = 1;
-        }
-        else{
-            counter++;
-        }   
-        
-        editedImage = imageObjectList.get(listValue).newImage;
-        
-        if(last == -1 || listValue != last){
-            counter = 1;
-        }
-        
-        last = listValue;
-        
-        rotate filter1 = new rotate(editedImage, counter);
-        editedImage = rotate.returnImage();
-        
-        WritableImage updatedImage;  
-        updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
-        imageSlot.setImage(updatedImage);
     }
     
     @FXML
-    public void processButton(MouseEvent event) throws IOException{
-                                  
-        editedImage = imageObjectList.get(listValue).newImage;
-        if(twoLayerBorder.isSelected()){
-            TwoLayerBorder twoLayer = new TwoLayerBorder(editedImage);
-            editedImage = TwoLayerBorder.returnImage();
-        }
-        else if(amber.isSelected()){
-            Amber newAmber = new Amber(editedImage);
-            editedImage = Amber.returnImage();
-        }
-        else if(borderOne.isSelected()){
-            BorderTwo newBoreder = new BorderTwo(editedImage);
-            editedImage = BorderTwo.returnImage();
-        }
-        else if(cerulean.isSelected()){
-            Cerulean newCerulean = new Cerulean(editedImage);
-            editedImage = Cerulean.returnImage();
-        }
-        else if(america.isSelected()){
-            America newAmerica = new America(editedImage);
-            editedImage = America.returnImage();
-        }
-        else if(forest.isSelected()){
-            Forest newForest = new Forest(editedImage);
-            editedImage = Forest.returnImage();
-        }
-        else if(negative.isSelected()){
-            Negative newNegative = new Negative(editedImage);
-            editedImage = Negative.returnImage();
-        }
-        else{
-            editedImage = imageObjectList.get(listValue).newImage;
-        }
-        WritableImage updatedImage;  
-        updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
-        imageSlot.setImage(updatedImage);
-        
-    }
-   
-    @FXML
-    public void browseButton(MouseEvent event) throws IOException{    
-        
+    public void browseButton(MouseEvent event) throws IOException{      
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Images");  
-        
+        fileChooser.setTitle("Open Images");        
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
         if(filesList != null){
@@ -210,7 +150,6 @@ public class TristonsFiltersController implements Initializable {
         }         
    } 
     
-    @FXML
     public void incrementPhotosDown(MouseEvent event) throws IOException{
         //if there is an item on our list we want to increment to the previous item
         //resetting the list value to the size of the list will take us to the end of the photo list
@@ -228,18 +167,15 @@ public class TristonsFiltersController implements Initializable {
         }      
     }    
    
-    @FXML
     public void incrementPhotosUp(MouseEvent event) throws IOException{
             //if there is an item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
         if(!imageObjectList.isEmpty()){                   
-            System.out.println("ListValue" + listValue);
-            //System.out.println("imageList size" + imageList.size());
+            
             listValue++;
-            // System.out.print("ListValue" + listValue);
+            
             if(listValue > imageObjectList.size() - 1){
-                listValue = 0;   
-                //System.out.print("ListValue" + listValue);
+                listValue = 0;                 
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -248,7 +184,6 @@ public class TristonsFiltersController implements Initializable {
             }  
             else{ 
                 //Reset the text of our browseField as well as the actual image on the UI
-                System.out.println("else");
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -259,15 +194,14 @@ public class TristonsFiltersController implements Initializable {
     } 
 
     @FXML
-    private void saveButton(MouseEvent event) throws IOException {   
+    private void saveButton(MouseEvent event) throws IOException {
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            save(saveStage, editedImage);    
+            save(saveStage, editedImage);     
     }
     
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
-        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);       
-            //imageSlot.setImage(updatedImage);
+        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);               
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(saveStage);
@@ -279,5 +213,6 @@ public class TristonsFiltersController implements Initializable {
             imageObjectList.add(imageObject);  
             listValue++;
         }           
-    }  
+    }
+    
 }

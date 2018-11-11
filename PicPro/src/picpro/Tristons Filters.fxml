@@ -18,7 +18,7 @@
       <Button layoutX="41.0" layoutY="682.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
       <Button fx:id="SaveButton" layoutX="824.0" layoutY="695.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="25.0" prefWidth="54.0" text="Save" />
       <CheckBox fx:id="twoLayerBorder" layoutX="34.0" layoutY="106.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="141.0" text="Two Layer Border" />
-      <Button layoutX="45.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#processButton" prefHeight="25.0" prefWidth="92.0" text="Process" />
+      <Button layoutX="71.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#processButton" prefHeight="25.0" prefWidth="92.0" text="Process" />
       <CheckBox fx:id="amber" layoutX="34.0" layoutY="139.0" mnemonicParsing="false" text="Amber" />
       <CheckBox fx:id="borderOne" layoutX="35.0" layoutY="219.0" mnemonicParsing="false" text="Border One" />
       <CheckBox fx:id="cerulean" layoutX="35.0" layoutY="256.0" mnemonicParsing="false" text="Cerulean" />
@@ -27,6 +27,6 @@
       <CheckBox fx:id="forest" layoutX="34.0" layoutY="326.0" mnemonicParsing="false" text="Forest" />
       <Button layoutX="935.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="25.0" prefWidth="54.0" text="Right" />
       <Button layoutX="176.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" prefHeight="25.0" prefWidth="65.0" text="Left" />
-      <Button layoutX="189.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#rotateButton" text="Rotate" />
+      <Button layoutX="92.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#rotateButton" text="Rotate" />
    </children>
 </AnchorPane>

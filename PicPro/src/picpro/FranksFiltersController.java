@@ -28,8 +28,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import static picpro.ProcessImageController.imageObjectList;
-import static picpro.TristonsFiltersController.imageObjectList;
 
 /**
  * FXML Controller class
@@ -61,7 +59,8 @@ public class FranksFiltersController implements Initializable {
     private TextField browseField;
     BufferedImage editedImage;
     int listValue = 0;  
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();  
+    //public static ArrayList<imageObject> imageObjectList = new ArrayList<>();  
+    public static ArrayList<BufferedImage> imageList = new ArrayList<>();
    
 
 
@@ -80,10 +79,12 @@ public class FranksFiltersController implements Initializable {
     @FXML
     private void applyFilter(MouseEvent event) {
         
-        editedImage = imageObjectList.get(listValue).newImage;
+        editedImage = imageList.get(listValue);
+        
         String magnitudeString = magnitudeBar.getText();
         String densityString = densityBar.getText();
         String strokesString = strokeBar.getText();
+        
         int magnitude = Integer.parseInt(magnitudeString);
         int density = Integer.parseInt(densityString);
         int strokes = Integer.parseInt(strokesString);
@@ -100,12 +101,15 @@ public class FranksFiltersController implements Initializable {
             filterStrokes filter = new filterStrokes(editedImage, magnitude, density, strokes);
             editedImage = filterStrokes.returnImage();
         }
+        else{
+            editedImage = imageList.get(listValue);
+        }
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
-        imageSlot.setImage(updatedImage);
-                 
+        imageSlot.setImage(updatedImage);               
     }
     
+    @FXML
     public void backButton(MouseEvent event) throws IOException{
             //loads the FXML of the previous menu. 
         FXMLLoader loader = new FXMLLoader();
@@ -119,7 +123,8 @@ public class FranksFiltersController implements Initializable {
     }
     
     @FXML
-    public void browseButton(MouseEvent event) throws IOException{      
+    public void browseButton(MouseEvent event) throws IOException{   
+            //loader for our file chooser
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Images");        
@@ -134,71 +139,64 @@ public class FranksFiltersController implements Initializable {
                         //rewrites it so we can replace it back on the imageview panel 
                         //add new image to image array list
                     imageToWrite = ImageIO.read(loop);                       
-                        //create new imageObject
-                        //add the image to the Image array list, and add the new object to the 
-                        //object list. Used image object for easy acess to each attribute of the images.
-                    imageObject imageObject = new imageObject(fileName, loop, imageToWrite);                           
-                    imageObjectList.add(imageObject);
+                    imageList.add(imageToWrite);
                         //update the browseText field. Increment the list location.                
-                        //System.out.println("Object Array value " + positionForNewImages);
                     positionForNewImages++;    
                 } 
             } 
-            browseField.setText(imageObjectList.get(0).getFileName());
-            WritableImage updatedImage = SwingFXUtils.toFXImage(imageObjectList.get(0).getImage(), null);               
+            WritableImage updatedImage = SwingFXUtils.toFXImage(imageList.get(0), null);               
             imageSlot.setImage(updatedImage);
         }         
    } 
     
+    @FXML
     public void incrementPhotosDown(MouseEvent event) throws IOException{
-        //if there is an item on our list we want to increment to the previous item
-        //resetting the list value to the size of the list will take us to the end of the photo list
-        if(!imageObjectList.isEmpty()){          
+            //if there is an item on our list we want to increment to the previous item
+            //resetting the list value to the size of the list will take us to the end of the photo list
+        if(!imageList.isEmpty()){          
             listValue--;                
             if(listValue < 0){                       
-                listValue = imageObjectList.size() - 1;
+                listValue = imageList.size() - 1;
             }   
                 //Reset the text of our browseField as well as the actual image on the UI
-            browseField.setText(imageObjectList.get(listValue).getFileName());                
-            BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+            BufferedImage imageToWrite = imageList.get(listValue);                
             WritableImage updatedImage;
             updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
             imageSlot.setImage(updatedImage); 
         }      
     }    
    
+    @FXML
     public void incrementPhotosUp(MouseEvent event) throws IOException{
-            //if there is an item on our list we want to increment to the Next item
+            //if there is at least one item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
-        if(!imageObjectList.isEmpty()){                   
-            
+        if(!imageList.isEmpty()){                   
             listValue++;
-            
-            if(listValue > imageObjectList.size() - 1){
-                listValue = 0;                 
-                browseField.setText(imageObjectList.get(listValue).getFileName());                
-                BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+            if(listValue > imageList.size() - 1){
+                listValue = 0;                                
+                BufferedImage imageToWrite = imageList.get(listValue);                
                 WritableImage updatedImage;
                 updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
                 imageSlot.setImage(updatedImage);   
             }  
             else{ 
-                //Reset the text of our browseField as well as the actual image on the UI
-                browseField.setText(imageObjectList.get(listValue).getFileName());                
-                BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
+                    //Reset the text of our browseField as well as the actual image on the UI                
+                BufferedImage imageToWrite = imageList.get(listValue);                
                 WritableImage updatedImage;
                 updatedImage = SwingFXUtils.toFXImage(imageToWrite, null);               
                 imageSlot.setImage(updatedImage); 
             }
         }
     } 
-
+        //calls our save function on click
     @FXML
     private void saveButton(MouseEvent event) throws IOException {
-            Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            save(saveStage, editedImage);     
+        Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        save(saveStage, editedImage);     
     }
-    
+        //Save function
+        //opens File chooser so user can select where to save
+        //creates new image object and adds it to the list for viewing
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(imageToSave, null);               
@@ -208,11 +206,9 @@ public class FranksFiltersController implements Initializable {
         if (file != null) {  
             ImageIO.write(SwingFXUtils.fromFXImage(updatedImage, null), "png", file); 
             String fileString = file.getPath();
-            System.out.println(fileString);
-            imageObject imageObject = new imageObject(fileString, file, imageToSave);  
-            imageObjectList.add(imageObject);  
+            System.out.println(fileString); 
+            imageList.add(imageToSave);  
             listValue++;
         }           
-    }
-    
+    }    
 }

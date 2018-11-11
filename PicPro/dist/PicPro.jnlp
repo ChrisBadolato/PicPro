@@ -8,8 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PicPro.jar" size="47856" download="eager" />
-    <jar href="lib\ij.jar" size="2250243" download="eager" />
+    <jar href="PicPro.jar" size="47469" download="eager" />
+    <jar href="lib\ij.jar" size="2230789" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="PicPro" >
     <param name="requiredFXVersion" value="8.0+"/>

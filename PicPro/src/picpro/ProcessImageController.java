@@ -67,13 +67,14 @@ public class ProcessImageController implements Initializable {
     int counter;
     int last = -1;
     
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();
+    
     
     @FXML
     private Button SaveButton;
     
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", 
-                "8-bit Filter","Black and White Filter", "Sepia Filter","TwoLayerBorder", "filterGlitch");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", 
+                "8-bit Filter","Black and White Filter", "Sepia Filter");
     
     @FXML
     private ChoiceBox filterChoice;
@@ -125,9 +126,7 @@ public class ProcessImageController implements Initializable {
         else{
             counter++;
         }   
-        
-        editedImage = imageObjectList.get(listValue).newImage;
-        
+        editedImage = imageObjectList.get(listValue).newImage; 
         if(last == -1 || listValue != last){
             counter = 1;
         }
@@ -153,31 +152,21 @@ public class ProcessImageController implements Initializable {
             eightBit filter1 = new eightBit(editedImage);           
             editedImage =  eightBit.returnImage();
         }
-        if("Black and White Filter".equals(boxChoice)){
+        else if("Black and White Filter".equals(boxChoice)){
             blackWhite filter1 = new blackWhite(editedImage);           
             editedImage =  blackWhite.returnImage();
         }
-        if("Sepia Filter".equals(boxChoice)){
+        else if("Sepia Filter".equals(boxChoice)){
         //Grabs our newly created image from our first filter.
             sepia filter1 = new sepia(editedImage);           
             editedImage =  sepia.returnImage();
         }
-        if("filterBoxes".equals(boxChoice)){
-            filterBoxes filter1 = new filterBoxes(editedImage, 20, 7, 2);           
-            editedImage =  filterBoxes.returnImage();
-        }
-        if("TwoLayerBorder".equals(boxChoice)){
-            TwoLayerBorder newFilter = new TwoLayerBorder(editedImage);
-            editedImage = TwoLayerBorder.returnImage();
-        }
-        if("filterGlitch".equals(boxChoice)){
-            filterGlitch filter1 = new filterGlitch(editedImage, 20, 7, 2);           
-            editedImage =  filterGlitch.returnImage();
-        }
         else if("Orginal Image".equals(boxChoice)){
             editedImage = imageObjectList.get(listValue).newImage;
         }
-
+        else{
+        }
+        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -260,13 +249,15 @@ public class ProcessImageController implements Initializable {
             }
         }
     } 
-
+        //calls our save function on click.
     @FXML
     private void saveButton(MouseEvent event) throws IOException {
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             save(saveStage, editedImage);     
     }
-    
+        //Save function
+        //opens File chooser so user can select where to save
+        //creates new image object and adds it to the list for viewing
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(imageToSave, null);               

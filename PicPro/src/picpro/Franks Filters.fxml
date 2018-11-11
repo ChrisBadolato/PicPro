@@ -6,29 +6,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="739.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.FranksFiltersController">
    <children>
-      <ImageView fx:id="imageSlot" fitHeight="497.0" fitWidth="600.0" layoutX="302.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageSlot" fitHeight="622.0" fitWidth="681.0" layoutX="238.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@picPro.png" />
          </image>
       </ImageView>
-      <TextField fx:id="browseField" layoutX="430.0" layoutY="576.0" prefHeight="26.0" prefWidth="314.0" promptText="File" />
-      <Button layoutX="20.0" layoutY="472.0" mnemonicParsing="false" onMouseClicked="#applyFilter" text="Apply Filter" />
-      <TextField fx:id="magnitudeBar" layoutX="118.0" layoutY="472.0" promptText="Magnitude" />
-      <TextField fx:id="densityBar" layoutX="118.0" layoutY="519.0" promptText="Density" />
-      <TextField fx:id="strokeBar" layoutX="118.0" layoutY="564.0" promptText="Stroke width" />
-      <CheckBox fx:id="boxesCheck" layoutX="32.0" layoutY="309.0" mnemonicParsing="false" text="Boxes" />
-      <CheckBox fx:id="glitchCheck" layoutX="33.0" layoutY="346.0" mnemonicParsing="false" text="Gltich" />
-      <CheckBox fx:id="strokesCheck" layoutX="36.0" layoutY="382.0" mnemonicParsing="false" text="Strokes" />
-      <Button layoutX="364.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="32.0" prefWidth="67.0" text="Browse" />
-      <Button layoutX="879.0" layoutY="681.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="32.0" prefWidth="54.0" text="Save" />
-      <Button layoutX="169.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" text="Down" />
-      <Button layoutX="931.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="32.0" prefWidth="54.0" text="Up" />
-      <Button layoutX="66.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#backButton" prefHeight="25.0" prefWidth="67.0" text="Back" />
-      <CheckBox fx:id="selectStrokes" layoutX="30.0" layoutY="273.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Strokes" />
-      <CheckBox fx:id="selectGlitch" layoutX="30.0" layoutY="235.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Glitches" />
-      <CheckBox fx:id="selectBoxes" layoutX="30.0" layoutY="199.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="Selective Boxes" />
+      <TextField fx:id="browseField" layoutX="238.0" layoutY="645.0" prefHeight="26.0" prefWidth="314.0" promptText="File" />
+      <Button layoutX="39.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#applyFilter" text="Apply Filter" />
+      <TextField fx:id="magnitudeBar" layoutX="14.0" layoutY="334.0" promptText="Magnitude" />
+      <TextField fx:id="densityBar" layoutX="14.0" layoutY="370.0" promptText="Density" />
+      <TextField fx:id="strokeBar" layoutX="14.0" layoutY="407.0" promptText="Stroke width" />
+      <Button layoutX="666.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="32.0" prefWidth="67.0" text="Browse" />
+      <Button layoutX="779.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="32.0" prefWidth="67.0" text="Save" />
+      <Button layoutX="169.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" prefHeight="32.0" prefWidth="51.0" text="&lt;--" />
+      <Button layoutX="931.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="32.0" prefWidth="54.0" text="--&gt;" />
+      <Button layoutX="70.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#backButton" prefHeight="32.0" prefWidth="67.0" text="Back" />
+      <VBox layoutX="14.0" layoutY="117.0" prefHeight="200.0" prefWidth="149.0" snapToPixel="false">
+         <children>
+            <CheckBox fx:id="selectBoxes" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="Selective Boxes" />
+            <CheckBox fx:id="selectGlitch" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Glitches" />
+            <CheckBox fx:id="selectStrokes" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Strokes" />
+            <CheckBox fx:id="glitchCheck" mnemonicParsing="false" text="Gltich" />
+            <CheckBox fx:id="boxesCheck" mnemonicParsing="false" text="Boxes" />
+            <CheckBox fx:id="strokesCheck" mnemonicParsing="false" text="Strokes" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -61,26 +61,21 @@ public class ProcessImageController implements Initializable {
     private Button incrementPhotosDown;
     @FXML
     private Button rotateButton;
+    @FXML
+    private Button SaveButton;
+    @FXML
+    private ChoiceBox filterChoice;
     
     BufferedImage editedImage;
     int listValue = 0;
     int counter;
     int last = -1;
     
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();
-    
-    
-    @FXML
-    private Button SaveButton;
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
     
     ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", 
                 "8-bit Filter","Black and White Filter", "Sepia Filter");
-    
-    @FXML
-    private ChoiceBox filterChoice;
-   
-
-
+     
         //initalziation controller.
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -88,16 +83,6 @@ public class ProcessImageController implements Initializable {
         filterChoice.setValue("Original Image");
         // TODO              
     }  
-    
-    public int ListValue(){
-        return listValue;
-    }
-        //Quits the program completely
-    public ArrayList imageObjectList(){
-        return imageObjectList;
-    }
-
-    
     
     @FXML
     public void quitButton(MouseEvent event){

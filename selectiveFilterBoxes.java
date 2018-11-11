@@ -11,7 +11,7 @@ public class selectiveFilterBoxes {
 	public int fxp1, fxp2,fxp3;
 	public ImagePlus imp;
 	
-	public ImageProcessor caBoxes(ImagePlus immp, int fxP1, int fxP2, int fxP3){
+	public selectiveFilterBoxes(ImagePlus immp, int fxP1, int fxP2, int fxP3){
 		
 		this.fxp1=fxP1;
 		this.fxp2=fxP2;
@@ -62,7 +62,7 @@ public class selectiveFilterBoxes {
         	}
         }
         
-        return ip;
+        finalimage= ip.getBufferedImage();
 	}
 	
 	private boolean isGood(float[] hsb, float[] avg) {

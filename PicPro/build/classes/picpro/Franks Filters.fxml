@@ -21,12 +21,16 @@
       <TextField fx:id="densityBar" layoutX="118.0" layoutY="519.0" promptText="Density" />
       <TextField fx:id="strokeBar" layoutX="118.0" layoutY="564.0" promptText="Stroke width" />
       <CheckBox fx:id="boxesCheck" layoutX="32.0" layoutY="309.0" mnemonicParsing="false" text="Boxes" />
-      <CheckBox fx:id="glitchCheck" layoutX="32.0" layoutY="353.0" mnemonicParsing="false" text="Gltich" />
-      <CheckBox fx:id="strokesCheck" layoutX="32.0" layoutY="397.0" mnemonicParsing="false" text="Strokes" />
+      <CheckBox fx:id="glitchCheck" layoutX="33.0" layoutY="346.0" mnemonicParsing="false" text="Gltich" />
+      <CheckBox fx:id="strokesCheck" layoutX="36.0" layoutY="382.0" mnemonicParsing="false" text="Strokes" />
       <Button layoutX="364.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#browseButton" prefHeight="32.0" prefWidth="67.0" text="Browse" />
-      <Button layoutX="567.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="32.0" prefWidth="54.0" text="Save" />
+      <Button layoutX="879.0" layoutY="681.0" mnemonicParsing="false" onMouseClicked="#saveButton" prefHeight="32.0" prefWidth="54.0" text="Save" />
       <Button layoutX="169.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" text="Down" />
       <Button layoutX="931.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="32.0" prefWidth="54.0" text="Up" />
       <Button layoutX="66.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#backButton" prefHeight="25.0" prefWidth="67.0" text="Back" />
+      <TextField fx:id="imageCountsField" layoutX="547.0" layoutY="626.0" prefHeight="25.0" prefWidth="197.0" promptText="Number of Images (Less than 30)" />
+      <CheckBox layoutX="30.0" layoutY="273.0" mnemonicParsing="false" text="CheckBox" />
+      <CheckBox layoutX="30.0" layoutY="235.0" mnemonicParsing="false" text="CheckBox" />
+      <CheckBox layoutX="30.0" layoutY="199.0" mnemonicParsing="false" text="CheckBox" />
    </children>
 </AnchorPane>

@@ -1,0 +1,7 @@
+PicPro
+-For users of social media
+-That want to spice up, experiment, and explore the ways that a variety of algorithms can manipulate and generate exciting new images.
+-The product is PicPro, an image processor and manipulator.
+-That leads to compelling new pictures to share with the world. Most image alteration software are basic in scope, and don’t utilize interesting and more “out of the box” algorithms that potentially can result in more fantastical images.
+-Unlike Photoshop and Pixlr, PicPro uses more experimental and algorithmic manipulation of images resulting in more experimental and provocative results than a simple filter or image adjustment. Our product will contain a myriad of interesting methods to change the customer’s images, including applying text generation algorithms like markov chains to a corpus of images allowing for completely new images to be created pixel by pixel from the original. 
+-Our product offers a fast and easy way to change an entire image as a whole or generate a completely new image based on a collection of existing photos.

@@ -1,6 +1,7 @@
+package picpro;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Random;
 
 import ij.ImagePlus;
@@ -9,13 +10,22 @@ import ij.process.ImageProcessor;
 public class filterBoxes {
 	
 	public Random random = new Random();
+	static public BufferedImage finalimage;
+        public BufferedImage image;
+        int fxP1, fxP2,fxP3;
 	
 	/* Parameters:
 	 * fxP1: magnitude
 	 * fxP2: density
 	 * fxP3: width
 	*/
-	public BufferedImage returnImage(BufferedImage image, int fxP1, int fxP2, int fxP3){
+	public filterBoxes(BufferedImage newImage, int fxP1a, int fxP2b, int fxP3c){
+        
+        this.image = newImage;
+        this.fxP1 = fxP1a;
+        this.fxP2 = fxP2b;
+        this.fxP3 = fxP3c;
+            
         ImagePlus imp = new ImagePlus("",image);
 		
         ImageProcessor ip = imp.getProcessor();
@@ -48,8 +58,11 @@ public class filterBoxes {
         		p++;
         	}
         }
-        
-        return ip.getBufferedImage();
+        finalimage = ip.getBufferedImage();
+	}
+	
+	static public BufferedImage returnImage(){
+		return finalimage;
 	}
 
 }

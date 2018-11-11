@@ -17,13 +17,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Chris Badolato
- */
+
 public class FXMLDocumentController implements Initializable {
         //creates a list for our choicebox.
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("ProcessImage", "Filters", "Process 3");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("ProcessImage", "Franks Filters", "Tristons Filters");
         //Button controllers.
     @FXML
     private Button selectButton;

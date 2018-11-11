@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PicPro.jar" size="51455" download="eager" />
+    <jar href="PicPro.jar" size="56500" download="eager" />
     <jar href="lib\byte-buddy-1.8.3.jar" size="3028893" download="eager" />
     <jar href="lib\client-combined-3.12.0-sources.jar" size="508935" download="eager" />
     <jar href="lib\client-combined-3.12.0.jar" size="1491620" download="eager" />

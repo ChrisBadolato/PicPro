@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package picpro;
 
 import java.awt.image.BufferedImage;
@@ -18,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -28,26 +33,32 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 
-/**
- * FXML Controller class
- *
- * @author
- *          Chris Badolato
- *          Frank Volk
- *          Ryan Deyoung
- *          Triston Hernandez
- */
+public class TristonsFiltersController implements Initializable {
 
+    @FXML
+    private CheckBox twoLayerBorder;
+    @FXML
+    private CheckBox amber;
+    @FXML
+    private CheckBox cerulean;
+    @FXML
+    private CheckBox negative;
+    @FXML
+    private CheckBox america;
+    @FXML
+    private CheckBox forest;
+    @FXML
+    private CheckBox borderOne;
 
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+       
+    }
 
-public class ProcessImageController implements Initializable {
-          
-        //Inializes button controllers
-    @FXML
-    private Button processButton;
-    @FXML
-    private Button backButton;
-    @FXML
     private Button quitButton;
     @FXML
     private Button browseButton;
@@ -55,39 +66,21 @@ public class ProcessImageController implements Initializable {
     private ImageView imageSlot;
     @FXML
     private TextField browseField;
-    @FXML
-    private Button incrementPhotosUp;
-    @FXML
-    private Button incrementPhotosDown;
-    @FXML
-    private Button rotateButton;
     
     BufferedImage editedImage;
     int listValue = 0;
     int counter;
     int last = -1;
     
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();
-    
-    
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
+    //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
     @FXML
     private Button SaveButton;
     
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", 
-                "8-bit Filter","Black and White Filter", "Sepia Filter");
+    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
     
-    @FXML
     private ChoiceBox filterChoice;
    
-
-
-        //initalziation controller.
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        filterChoice.setItems(choiceBoxList);
-        filterChoice.setValue("Original Image");
-        // TODO              
-    }  
     
     public int ListValue(){
         return listValue;
@@ -99,7 +92,6 @@ public class ProcessImageController implements Initializable {
 
     
     
-    @FXML
     public void quitButton(MouseEvent event){
        Stage stage = (Stage) quitButton.getScene().getWindow();
        stage.close();
@@ -126,14 +118,18 @@ public class ProcessImageController implements Initializable {
         else{
             counter++;
         }   
-        editedImage = imageObjectList.get(listValue).newImage; 
+        
+        editedImage = imageObjectList.get(listValue).newImage;
+        
         if(last == -1 || listValue != last){
             counter = 1;
         }
         
         last = listValue;
+        
         rotate filter1 = new rotate(editedImage, counter);
         editedImage = rotate.returnImage();
+        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -141,30 +137,39 @@ public class ProcessImageController implements Initializable {
     
     @FXML
     public void processButton(MouseEvent event) throws IOException{
-        
+                                  
         editedImage = imageObjectList.get(listValue).newImage;
-        String boxChoice;
-        boxChoice = (String) filterChoice.getValue();
-        if("8-bit Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
-            eightBit filter1 = new eightBit(editedImage);           
-            editedImage =  eightBit.returnImage();
+        if(twoLayerBorder.isSelected()){
+            TwoLayerBorder twoLayer = new TwoLayerBorder(editedImage);
+            editedImage = TwoLayerBorder.returnImage();
         }
-        else if("Black and White Filter".equals(boxChoice)){
-            blackWhite filter1 = new blackWhite(editedImage);           
-            editedImage =  blackWhite.returnImage();
+        else if(amber.isSelected()){
+            Amber newAmber = new Amber(editedImage);
+            editedImage = Amber.returnImage();
         }
-        else if("Sepia Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
-            sepia filter1 = new sepia(editedImage);           
-            editedImage =  sepia.returnImage();
+        else if(borderOne.isSelected()){
+            BorderTwo newBoreder = new BorderTwo(editedImage);
+            editedImage = BorderTwo.returnImage();
         }
-        else if("Orginal Image".equals(boxChoice)){
-            editedImage = imageObjectList.get(listValue).newImage;
+        else if(cerulean.isSelected()){
+            Cerulean newCerulean = new Cerulean(editedImage);
+            editedImage = Cerulean.returnImage();
+        }
+        else if(america.isSelected()){
+            America newAmerica = new America(editedImage);
+            editedImage = America.returnImage();
+        }
+        else if(forest.isSelected()){
+            Forest newForest = new Forest(editedImage);
+            editedImage = Forest.returnImage();
+        }
+        else if(negative.isSelected()){
+            Negative newNegative = new Negative(editedImage);
+            editedImage = Negative.returnImage();
         }
         else{
+            editedImage = imageObjectList.get(listValue).newImage;
         }
-        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
@@ -172,10 +177,12 @@ public class ProcessImageController implements Initializable {
     }
    
     @FXML
-    public void browseButton(MouseEvent event) throws IOException{      
+    public void browseButton(MouseEvent event) throws IOException{    
+        
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Images");        
+        fileChooser.setTitle("Open Images");  
+        
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
         if(filesList != null){
@@ -226,11 +233,13 @@ public class ProcessImageController implements Initializable {
             //if there is an item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
         if(!imageObjectList.isEmpty()){                   
-            
+            System.out.println("ListValue" + listValue);
+            //System.out.println("imageList size" + imageList.size());
             listValue++;
-            
+            // System.out.print("ListValue" + listValue);
             if(listValue > imageObjectList.size() - 1){
-                listValue = 0;                 
+                listValue = 0;   
+                //System.out.print("ListValue" + listValue);
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -239,6 +248,7 @@ public class ProcessImageController implements Initializable {
             }  
             else{ 
                 //Reset the text of our browseField as well as the actual image on the UI
+                System.out.println("else");
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -247,18 +257,17 @@ public class ProcessImageController implements Initializable {
             }
         }
     } 
-        //calls our save function on click.
+
     @FXML
-    private void saveButton(MouseEvent event) throws IOException {
+    private void saveButton(MouseEvent event) throws IOException {   
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            save(saveStage, editedImage);     
+            save(saveStage, editedImage);    
     }
-        //Save function
-        //opens File chooser so user can select where to save
-        //creates new image object and adds it to the list for viewing
+    
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
-        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);               
+        updatedImage = SwingFXUtils.toFXImage(imageToSave, null);       
+            //imageSlot.setImage(updatedImage);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(saveStage);
@@ -270,6 +279,5 @@ public class ProcessImageController implements Initializable {
             imageObjectList.add(imageObject);  
             listValue++;
         }           
-    }
-    
-}  
+    }  
+}

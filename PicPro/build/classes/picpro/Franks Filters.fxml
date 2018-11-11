@@ -9,13 +9,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="739.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.FranksFiltersController">
    <children>
-      <ImageView fx:id="imageSlot" fitHeight="497.0" fitWidth="600.0" layoutX="309.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageSlot" fitHeight="497.0" fitWidth="600.0" layoutX="302.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@picPro.png" />
          </image>
       </ImageView>
-      <TextField fx:id="instaSearchBar" layoutX="547.0" layoutY="576.0" prefHeight="26.0" prefWidth="197.0" promptText="Instagram Search" />
-      <Button fx:id="instaSearch" layoutX="447.0" layoutY="577.0" mnemonicParsing="false" onMouseClicked="#getInstagramPictures" prefHeight="25.0" prefWidth="60.0" text="Go" />
+      <TextField fx:id="browseField" layoutX="430.0" layoutY="576.0" prefHeight="26.0" prefWidth="314.0" promptText="File" />
       <Button layoutX="20.0" layoutY="472.0" mnemonicParsing="false" onMouseClicked="#applyFilter" text="Apply Filter" />
       <TextField fx:id="magnitudeBar" layoutX="118.0" layoutY="472.0" promptText="Magnitude" />
       <TextField fx:id="densityBar" layoutX="118.0" layoutY="519.0" promptText="Density" />
@@ -28,9 +27,8 @@
       <Button layoutX="169.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosDown" text="Down" />
       <Button layoutX="931.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#incrementPhotosUp" prefHeight="32.0" prefWidth="54.0" text="Up" />
       <Button layoutX="66.0" layoutY="684.0" mnemonicParsing="false" onMouseClicked="#backButton" prefHeight="25.0" prefWidth="67.0" text="Back" />
-      <TextField fx:id="imageCountsField" layoutX="547.0" layoutY="626.0" prefHeight="25.0" prefWidth="197.0" promptText="Number of Images (Less than 30)" />
-      <CheckBox layoutX="30.0" layoutY="273.0" mnemonicParsing="false" text="CheckBox" />
-      <CheckBox layoutX="30.0" layoutY="235.0" mnemonicParsing="false" text="CheckBox" />
-      <CheckBox layoutX="30.0" layoutY="199.0" mnemonicParsing="false" text="CheckBox" />
+      <CheckBox fx:id="selectStrokes" layoutX="30.0" layoutY="273.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Strokes" />
+      <CheckBox fx:id="selectGlitch" layoutX="30.0" layoutY="235.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="127.0" text="Selective Glitches" />
+      <CheckBox fx:id="selectBoxes" layoutX="30.0" layoutY="199.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" text="Selective Boxes" />
    </children>
 </AnchorPane>

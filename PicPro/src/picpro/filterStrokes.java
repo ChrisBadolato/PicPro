@@ -37,10 +37,7 @@ public class filterStrokes {
         for (int i=0; i<h;i+=fxP2){
         	for (int j=0; j<w; j+=fxP2){
         		rgb = imp.getPixel(j, i);
-        		System.out.println(Arrays.toString(rgb));
-        		
         		Color.RGBtoHSB(rgb[0], rgb[1], rgb[2], hsb[pxlcount]);
-        		System.out.println(Arrays.toString(hsb[pxlcount]));
         		pxlcount++;
         	}
         }

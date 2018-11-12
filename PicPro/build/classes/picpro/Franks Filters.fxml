@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="739.0" prefWidth="999.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="picpro.FranksFiltersController">
    <children>
-      <ImageView fx:id="imageSlot" fitHeight="622.0" fitWidth="681.0" layoutX="238.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageSlot" fitHeight="535.0" fitWidth="681.0" layoutX="279.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@picPro.png" />
          </image>

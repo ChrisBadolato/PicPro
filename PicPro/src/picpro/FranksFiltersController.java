@@ -19,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -28,7 +27,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import static picpro.ProcessImageController.imageObjectList;
 
 /**
  * FXML Controller class
@@ -70,7 +68,6 @@ public class FranksFiltersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
         //On click apply filter to the image.
         //Calls the corresponding java file with the current image.
     @FXML
@@ -99,15 +96,15 @@ public class FranksFiltersController implements Initializable {
             editedImage =  selectiveFilterStrokes.returnImage();
         }
         else if(boxesCheck.isSelected()){
-            filterBoxes boxes = new filterBoxes(editedImage, magnitude, density, strokes);           
+            filterBoxes Sboxes = new filterBoxes(editedImage, magnitude, density, strokes);           
             editedImage =  filterBoxes.returnImage();
         }
         else if(glitchCheck.isSelected()){
-            filterGlitch glitch = new filterGlitch(editedImage, magnitude, density, strokes);           
+            filterGlitch Sglitch = new filterGlitch(editedImage, magnitude, density, strokes);           
             editedImage =  filterGlitch.returnImage();
         }
         else if(strokesCheck.isSelected()){
-            filterStrokes filter = new filterStrokes(editedImage, magnitude, density, strokes);
+            filterStrokes Sstrokes = new filterStrokes(editedImage, magnitude, density, strokes);
             editedImage = filterStrokes.returnImage();
         }
         else{

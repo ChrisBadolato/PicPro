@@ -1,4 +1,10 @@
 
+
+//This is the skeleton on the project.
+//we can access each user interface from here.
+
+
+
 package picpro;
 
 import java.io.IOException;

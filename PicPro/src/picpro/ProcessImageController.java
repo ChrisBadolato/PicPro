@@ -66,13 +66,18 @@ public class ProcessImageController implements Initializable {
     @FXML
     private ChoiceBox filterChoice;
     
-    BufferedImage editedImage;
+    
+        // variable to hold the current picture place to be used in the rotate button
     int listValue = 0;
+        // variable to keep count of the number of times the rotate button as been pressed per image
     int counter;
+        // variable to hold the last picture place for the rotate button 
     int last = -1;
+        // buffered image to hold the image after filter has been applied
+    BufferedImage editedImage;
     
     public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
-    
+        //initalizes our choiceBoxList
     ObservableList<String> choiceBoxList = FXCollections.observableArrayList("Original Image", 
                 "8-bit Filter","Black and White Filter", "Sepia Filter");
      
@@ -83,13 +88,7 @@ public class ProcessImageController implements Initializable {
         filterChoice.setValue("Original Image");
         // TODO              
     }  
-    
-    @FXML
-    public void quitButton(MouseEvent event){
-       Stage stage = (Stage) quitButton.getScene().getWindow();
-       stage.close();
-    }
-   
+       
     @FXML 
     public void backButton(MouseEvent event) throws IOException{
             //loads the FXML of the previous menu. 
@@ -115,7 +114,7 @@ public class ProcessImageController implements Initializable {
         if(last == -1 || listValue != last){
             counter = 1;
         }
-        
+       
         last = listValue;
         rotate filter1 = new rotate(editedImage, counter);
         editedImage = rotate.returnImage();
@@ -123,15 +122,16 @@ public class ProcessImageController implements Initializable {
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
     }
-    
+        //When we are ready to add a filter to the image and we have a selection from
+        //our choicebox. It will apply the selected filter to the image
+        //then upload it to the screen.
     @FXML
     public void processButton(MouseEvent event) throws IOException{
-
         editedImage = imageObjectList.get(listValue).newImage;
         String boxChoice;
         boxChoice = (String) filterChoice.getValue();
         if("8-bit Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
+             //Grabs our newly created image from our first filter.
             eightBit filter1 = new eightBit(editedImage);           
             editedImage =  eightBit.returnImage();
         }
@@ -140,7 +140,6 @@ public class ProcessImageController implements Initializable {
             editedImage =  blackWhite.returnImage();
         }
         else if("Sepia Filter".equals(boxChoice)){
-        //Grabs our newly created image from our first filter.
             sepia filter1 = new sepia(editedImage);           
             editedImage =  sepia.returnImage();
         }
@@ -149,11 +148,9 @@ public class ProcessImageController implements Initializable {
         }
         else{
         }
-        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
-        imageSlot.setImage(updatedImage);
-        
+        imageSlot.setImage(updatedImage);   
     }
    
     @FXML
@@ -255,6 +252,5 @@ public class ProcessImageController implements Initializable {
             imageObjectList.add(imageObject);  
             listValue++;
         }           
-    }
-    
+    }  
 }  

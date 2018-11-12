@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package picpro;
 
 import java.awt.image.BufferedImage;
@@ -11,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 /**
  *
- * @author Chris Badolato
+ * @author Ryan DeYoung
  */
 public class sepia {
     
@@ -19,8 +14,7 @@ public class sepia {
     public BufferedImage inputImage;
     static BufferedImage output;
         
-     public sepia (BufferedImage passedImage) {     
-        //System.out.print("Hello");        
+     public sepia (BufferedImage passedImage) {           
         this.inputImage = passedImage;
         
         // variable to hold th width and height of input image                
@@ -29,47 +23,48 @@ public class sepia {
         
         // variable to hold the current pixel number
         int pixel;
-
-       int  red, green, blue;
+        
+        // variables to hold the initial and new components of each pixel 
+        int  red, green, blue;
         int sepiaRed, sepiaGreen, sepiaBlue;
-            
+        
+        // declares and initializes the output buffered image
         output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         
+        // loops the image and converts each pixel to its sepia version
         for(int i = 0; i < width; i++){
             for(int j = 0; j < height; j++){
+                // sets pixel to equal the number of each pixel from the input image
                 pixel = inputImage.getRGB(i, j);
                 
+                // divides the pixel value into each of the seperate components red, green and blue
                 red = (pixel>>16) &0xff;
                 green = (pixel>>8) &0xff;
                 blue = pixel &0xff;
                 
+                // using a mathematical formula found online at 
+                // https://www.techrepublic.com/blog/how-do-i/how-do-i-convert-images-to-grayscale-and-sepia-tone-using-c/
+                // this converts each component to represent its sepia version 
                 sepiaRed = (int)(0.393 * red + 0.769 * green + 0.189 * blue);
                 sepiaGreen = (int)(0.349 * red + 0.686 * green + 0.168 * blue);
                 sepiaBlue = (int)(0.272 * red + 0.534 * green + 0.131 * blue);
                 
+                // checks to see if each of the new components exceeds the color limit of 255 
+                // if it does it sets the value to the color limit
                 if (sepiaRed > 255){
-                    red= 255;
+                    sepiaRed = 255;
                 }
-                else{
-                    red = sepiaRed;
-                }
-                
                 if (sepiaGreen > 255){
-                    green = 255;
+                    sepiaGreen = 255;
                 }
-                else{
-                    green = sepiaGreen;
-                }
-                
                 if (sepiaBlue > 255){
-                    blue = 255;
-                }
-                else{
-                    blue = sepiaBlue;
+                    sepiaBlue = 255;
                 }
                 
-                pixel = (red<<16) | (green<<8) | blue;
+                // resets pixel to equal the new sepia color
+                pixel = (sepiaRed<<16) | (sepiaGreen<<8) | sepiaBlue;
                 
+                // puts new pixel into the output image
                 output.setRGB(i, j, pixel);
             }    
         }

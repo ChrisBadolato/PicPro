@@ -48,55 +48,36 @@ public class TristonsFiltersController implements Initializable {
     @FXML
     private CheckBox forest;
     @FXML
-    private CheckBox borderOne;
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       
-    }
-
-    private Button quitButton;
+    private CheckBox borderOne; 
+    
+    
     @FXML
     private Button browseButton;
     @FXML
     private ImageView imageSlot;
     @FXML
     private TextField browseField;
-    
-    BufferedImage editedImage;
-    int listValue = 0;
-    int counter;
-    int last = -1;
-    
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
-    //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
     @FXML
     private Button SaveButton;
-    
-    ObservableList<String> choiceBoxList = FXCollections.observableArrayList("filterBoxes", "Original Image", "8-bit Filter","Black and White Filter", "Sepia Filter");
-    
-    private ChoiceBox filterChoice;
-   
-    
-    public int ListValue(){
-        return listValue;
-    }
-        //Quits the program completely
-    public ArrayList imageObjectList(){
-        return imageObjectList;
+    private Button quitButton;   
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       
     }
 
+        // variable to hold the current picture place to be used in the rotate button
+    int listValue = 0;
+        // variable to keep count of the number of times the rotate button as been pressed per image
+    int counter;
+        // variable to hold the last picture place for the rotate button 
+    int last = -1;
+        // buffered image to hold the image after filter has been applied
+    BufferedImage editedImage ;
     
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();   
     
-    public void quitButton(MouseEvent event){
-       Stage stage = (Stage) quitButton.getScene().getWindow();
-       stage.close();
-    }
-   
+
     @FXML 
     public void backButton(MouseEvent event) throws IOException{
             //loads the FXML of the previous menu. 
@@ -118,26 +99,24 @@ public class TristonsFiltersController implements Initializable {
         else{
             counter++;
         }   
-        
         editedImage = imageObjectList.get(listValue).newImage;
-        
         if(last == -1 || listValue != last){
             counter = 1;
         }
-        
         last = listValue;
-        
         rotate filter1 = new rotate(editedImage, counter);
         editedImage = rotate.returnImage();
-        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);
     }
-    
+        
+        //This user interface has checkboxes as opposed to the choicebox.
+        //if our checkbox is selected apply the corresponding filter.
+        //each one calls seperate filters on the Buffered Image.
+        //Only one will be applied at a time.
     @FXML
-    public void processButton(MouseEvent event) throws IOException{
-                                  
+    public void processButton(MouseEvent event) throws IOException{                     
         editedImage = imageObjectList.get(listValue).newImage;
         if(twoLayerBorder.isSelected()){
             TwoLayerBorder twoLayer = new TwoLayerBorder(editedImage);
@@ -148,7 +127,7 @@ public class TristonsFiltersController implements Initializable {
             editedImage = Amber.returnImage();
         }
         else if(borderOne.isSelected()){
-            BorderTwo newBoreder = new BorderTwo(editedImage);
+            BorderTwo newBorder = new BorderTwo(editedImage);
             editedImage = BorderTwo.returnImage();
         }
         else if(cerulean.isSelected()){
@@ -178,11 +157,9 @@ public class TristonsFiltersController implements Initializable {
    
     @FXML
     public void browseButton(MouseEvent event) throws IOException{    
-        
         Stage browseStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Images");  
-        
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
         if(filesList != null){
@@ -212,8 +189,8 @@ public class TristonsFiltersController implements Initializable {
     
     @FXML
     public void incrementPhotosDown(MouseEvent event) throws IOException{
-        //if there is an item on our list we want to increment to the previous item
-        //resetting the list value to the size of the list will take us to the end of the photo list
+            //if there is an item on our list we want to increment to the previous item
+            //resetting the list value to the size of the list will take us to the end of the photo list
         if(!imageObjectList.isEmpty()){          
             listValue--;                
             if(listValue < 0){                       
@@ -233,13 +210,11 @@ public class TristonsFiltersController implements Initializable {
             //if there is an item on our list we want to increment to the Next item
             //resetting the list value to the size of the list will take us to the front of the photo list
         if(!imageObjectList.isEmpty()){                   
-            System.out.println("ListValue" + listValue);
-            //System.out.println("imageList size" + imageList.size());
-            listValue++;
-            // System.out.print("ListValue" + listValue);
+            System.out.println("ListValue" + listValue);     
+            listValue++;          
             if(listValue > imageObjectList.size() - 1){
-                listValue = 0;   
-                //System.out.print("ListValue" + listValue);
+                listValue = 0;            
+                    //Reset the text of our browseField as well as the actual image on the UI    
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
                 WritableImage updatedImage;
@@ -247,7 +222,7 @@ public class TristonsFiltersController implements Initializable {
                 imageSlot.setImage(updatedImage);   
             }  
             else{ 
-                //Reset the text of our browseField as well as the actual image on the UI
+                    
                 System.out.println("else");
                 browseField.setText(imageObjectList.get(listValue).getFileName());                
                 BufferedImage imageToWrite = ImageIO.read(imageObjectList.get(listValue).getFile());                
@@ -257,17 +232,18 @@ public class TristonsFiltersController implements Initializable {
             }
         }
     } 
-
+        //calls our save function on click.
     @FXML
     private void saveButton(MouseEvent event) throws IOException {   
             Stage saveStage = (Stage)((Node) event.getSource()).getScene().getWindow();
             save(saveStage, editedImage);    
     }
-    
+        //Save function
+        //opens File chooser so user can select where to save
+        //creates new image object and adds it to the list for viewing
     public void save(Stage saveStage, BufferedImage imageToSave) throws IOException{        
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(imageToSave, null);       
-            //imageSlot.setImage(updatedImage);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(saveStage);

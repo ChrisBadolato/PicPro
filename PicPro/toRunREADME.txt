@@ -15,5 +15,6 @@ To Access the Java files (Code)
 	Select (within the PicPro file) build>classes>picpro
 	the FXML files show the actaul scene codes
 	while the .class files show the controllers for each FXML file.
+ij.jar will need to be added to the libraries. It is incldued in the lib file within picPro
 		
 		

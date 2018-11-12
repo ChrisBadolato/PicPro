@@ -126,7 +126,7 @@ public class ProcessImageController implements Initializable {
     
     @FXML
     public void processButton(MouseEvent event) throws IOException{
-        
+
         editedImage = imageObjectList.get(listValue).newImage;
         String boxChoice;
         boxChoice = (String) filterChoice.getValue();

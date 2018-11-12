@@ -37,7 +37,7 @@ import static picpro.ProcessImageController.imageObjectList;
  */
 public class FranksFiltersController implements Initializable {
 
-    private TextField instaSearchBar;
+    
     @FXML
     private TextField magnitudeBar;
     @FXML
@@ -52,12 +52,6 @@ public class FranksFiltersController implements Initializable {
     private CheckBox strokesCheck;
     @FXML
     private ImageView imageSlot;
-       
-    BufferedImage editedImage;
-    int listValue = 0;  
-    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();  
-    //public static ArrayList<BufferedImage> imageList = new ArrayList<>();
-    
     @FXML
     private TextField browseField;
     @FXML
@@ -67,7 +61,9 @@ public class FranksFiltersController implements Initializable {
     @FXML
     private CheckBox selectBoxes;
    
-
+    BufferedImage editedImage;
+    int listValue = 0;  
+    public static ArrayList<imageObject> imageObjectList = new ArrayList<>();  
 
     
     @Override
@@ -75,22 +71,22 @@ public class FranksFiltersController implements Initializable {
         // TODO
     }    
 
-
-
+        //On click apply filter to the image.
+        //Calls the corresponding java file with the current image.
     @FXML
     private void applyFilter(MouseEvent event) { 
+            //set up our current image to be edit(image in view)
         editedImage = imageObjectList.get(listValue).newImage; 
-        
+            //get the entered text values from users and change them to integers.
         String magnitudeString = magnitudeBar.getText();
         String densityString = densityBar.getText();
         String strokesString = strokeBar.getText();
-        
         int magnitude = Integer.parseInt(magnitudeString);
         int density = Integer.parseInt(densityString);
         int strokes = Integer.parseInt(strokesString);
-        
-        if(selectGlitch.isSelected()){
-            
+            //With corresponding check box clicked we will apply the selected filter
+            //our edited image is set and displayed.
+        if(selectGlitch.isSelected()){ 
             selectiveFilterGlitch glitch = new selectiveFilterGlitch(editedImage, magnitude, density, strokes);           
             editedImage =  selectiveFilterGlitch.returnImage();
         }
@@ -116,7 +112,8 @@ public class FranksFiltersController implements Initializable {
         }
         else{
             editedImage = imageObjectList.get(listValue).newImage;
-        }
+        }   
+            //after our image is edited print it to the screen.
         WritableImage updatedImage;  
         updatedImage = SwingFXUtils.toFXImage(editedImage, null);       
         imageSlot.setImage(updatedImage);               
@@ -143,6 +140,7 @@ public class FranksFiltersController implements Initializable {
         fileChooser.setTitle("Open Images");        
         List<File> filesList = fileChooser.showOpenMultipleDialog(browseStage);
         int positionForNewImages = listValue;
+            //grabs the files we're choosing.
         if(filesList != null){
             for(File loop : filesList){
                 if(loop != null){
